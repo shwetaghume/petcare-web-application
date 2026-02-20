@@ -1,0 +1,229 @@
+.admin-dashboard-container {
+  padding: 32px 24px;
+  background: #f7fbff;
+  min-height: 100vh;
+}
+
+.admin-dashboard-title {
+  font-size: 2.5rem;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 8px;
+}
+
+.admin-dashboard-welcome {
+  color: #555;
+  margin-bottom: 32px;
+  font-size: 1.1rem;
+}
+
+.admin-dashboard-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 32px;
+  justify-content: flex-start;
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 24px 32px 24px 32px;
+  min-width: 220px;
+  flex: 1 1 220px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 110px;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  border-radius: 16px 16px 0 0;
+}
+
+.stat-pets::before { background: #7c3aed; }
+.stat-adoptions::before { background: #22c55e; }
+.stat-products::before { background: #f59e42; }
+.stat-orders::before { background: #2563eb; }
+.stat-revenue::before { background: #f59e42; }
+.stat-lowstock::before { background: #f87171; }
+
+.stat-icon {
+  font-size: 2.2rem;
+  color: #007bff;
+  flex-shrink: 0;
+}
+
+.stat-pets .stat-icon { color: #7c3aed; }
+.stat-adoptions .stat-icon { color: #22c55e; }
+.stat-products .stat-icon { color: #f59e42; }
+.stat-orders .stat-icon { color: #2563eb; }
+.stat-revenue .stat-icon { color: #f59e42; }
+.stat-lowstock .stat-icon { color: #f87171; }
+
+.stat-value {
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-bottom: 2px;
+  color: #222;
+}
+
+.stat-label {
+  font-size: 1rem;
+  color: #333;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.stat-sub {
+  font-size: 0.95rem;
+  color: #888;
+}
+
+.admin-dashboard-shortcuts {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.shortcut-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 24px 32px;
+  min-width: 220px;
+  flex: 1 1 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-decoration: none;
+  color: #222;
+  transition: box-shadow 0.2s, transform 0.2s, color 0.2s;
+  position: relative;
+  border: 1.5px solid #e3e3e3;
+}
+
+.shortcut-card:hover {
+  box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+  transform: translateY(-2px) scale(1.02);
+  color: #007bff;
+  border-color: #007bff;
+}
+
+.shortcut-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+  color: #007bff;
+}
+
+.shortcut-desc {
+  font-size: 0.95rem;
+  color: #888;
+  margin-top: 4px;
+}
+
+.admin-dashboard-recent {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.recent-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 24px 32px;
+  min-width: 320px;
+  flex: 1 1 320px;
+}
+
+.recent-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+  font-family: 'Playfair Display', serif;
+}
+
+.recent-empty {
+  color: #aaa;
+  font-style: italic;
+  margin-top: 12px;
+}
+
+.recent-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.recent-card li {
+  padding: 6px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 1rem;
+}
+
+.recent-card li:last-child {
+  border-bottom: none;
+}
+
+/* Navbar and Button Enhancements */
+.navbar {
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  padding: 0.7rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #007bff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.navbar .nav-link, .navbar .btn, .navbar .logout-button {
+  border-radius: 20px;
+  padding: 8px 18px;
+  margin: 0 4px;
+  font-weight: 500;
+  background: none;
+  border: none;
+  color: #222;
+  transition: background 0.2s, color 0.2s;
+}
+
+.navbar .nav-link.active, .navbar .btn.active {
+  background: #e3f0ff;
+  color: #007bff;
+}
+
+.navbar .nav-link:hover, .navbar .btn:hover, .navbar .logout-button:hover {
+  background: #007bff;
+  color: #fff;
+}
+
+.navbar .logout-button {
+  background: #f3f4f6;
+  color: #222;
+  border: 1px solid #e3e3e3;
+  margin-left: 12px;
+}
+
+.navbar .logout-button:hover {
+  background: #f87171;
+  color: #fff;
+  border-color: #f87171;
+} 

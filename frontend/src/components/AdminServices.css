@@ -1,0 +1,133 @@
+.admin-services-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.admin-services-container h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 2rem;
+}
+
+.admin-service-form {
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.admin-service-form input,
+.admin-service-form select {
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.admin-service-form input:focus,
+.admin-service-form select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.admin-service-form button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  grid-column: 1 / -1;
+  max-width: 200px;
+}
+
+.admin-service-form button:hover {
+  background: #1d4ed8;
+}
+
+.admin-services-container h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.admin-services-container ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.admin-services-container li {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  border-left: 4px solid #2563eb;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.admin-services-container li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+}
+
+.admin-services-container li b {
+  color: #2563eb;
+  font-size: 1.1rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.admin-services-container li p {
+  color: #6b7280;
+  margin: 0.25rem 0;
+  line-height: 1.5;
+}
+
+/* Error and Success Messages */
+.admin-services-container div[style*="color: red"] {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.admin-services-container div[style*="color: green"] {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #16a34a;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .admin-services-container {
+    padding: 1rem;
+  }
+  
+  .admin-service-form {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+  }
+  
+  .admin-services-container ul {
+    grid-template-columns: 1fr;
+  }
+} 

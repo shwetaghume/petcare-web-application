@@ -1,0 +1,117 @@
+.back-button {
+  position: fixed;
+  top: 100px; /* Below the navbar */
+  left: 20px;
+  z-index: 1000;
+  
+  /* Button styling - clean and simple like the image */
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  
+  /* Icon styling */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #374151;
+  font-size: 16px;
+  
+  /* Transitions */
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  color: #1f2937;
+}
+
+.back-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.back-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .back-button {
+    background: rgba(31, 41, 55, 0.9);
+    color: #e5e7eb;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .back-button:hover {
+    background: rgba(31, 41, 55, 0.95);
+    color: #f9fafb;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .back-button {
+    top: 85px;
+    left: 15px;
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+  }
+}
+
+/* Admin pages styling - same clean design */
+.back-button.admin-page {
+  top: 90px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(229, 231, 235, 0.8);
+}
+
+.back-button.admin-page:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(209, 213, 219, 0.8);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Animation for page entrance */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.back-button {
+  animation: slideInLeft 0.3s ease-out;
+}
+
+/* Remove alternative styles - keep it simple */
+.back-button-alt {
+  display: none;
+}
+
+/* Icon styling within the button */
+.back-button svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+}
+
+/* Simple hover effect for better interactivity */
+.back-button:hover svg {
+  transform: translateX(-1px);
+  transition: transform 0.2s ease;
+} 

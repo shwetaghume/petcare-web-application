@@ -1,0 +1,787 @@
+/* src/components/Navbar.css */
+@keyframes shine {
+  0% {
+    transform: translateX(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) rotate(45deg);
+  }
+}
+
+/* Modern Minimalistic Navbar */
+.navbar {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--gray-200);
+  height: 60px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: all var(--transition-fast);
+  color: #222;
+}
+
+.navbar.scrolled {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: var(--shadow-md);
+}
+
+.navbar-container {
+  display: grid !important;
+  grid-template-columns: 200px 1fr 260px !important; /* Logo | Flexible Middle | Right for User+Logout */
+  align-items: center !important;
+  height: 100% !important;
+  max-width: 1600px; /* Increased max-width for better authenticated user experience */
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+  position: relative;
+  gap: var(--spacing-md); /* Better gap for authenticated navigation */
+  overflow: visible !important;
+}
+
+/* Move navbar logo to left sidebar on admin pages */
+body.admin-page .navbar-logo {
+  position: fixed !important;
+  left: 20px !important;
+  top: 20px !important;
+  z-index: 1001 !important;
+  transform: none !important;
+  background: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+body.admin-page .navbar-logo:hover {
+  transform: scale(1.05) !important;
+  box-shadow: none !important;
+}
+
+/* Logo Section - Grid Area 1 */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-bold);
+  transition: all var(--transition-fast);
+  grid-column: 1; /* First column */
+  justify-self: start;
+}
+
+.navbar-logo:hover {
+  transform: scale(1.05);
+}
+
+.navbar-icon {
+  margin-right: var(--spacing-sm);
+  font-size: 1.75rem;
+}
+
+.logo-text {
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Search Bar */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: #f3f4f6; /* Light gray background */
+  border-radius: 25px; /* Full rounded corners */
+  padding: 6px 12px;
+  flex: 0 1 200px; /* Reduced flex-basis for more nav space */
+  max-width: 220px; /* Reduced max-width */
+  min-width: 120px; /* Reduced min-width */
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+  height: 36px; /* Slightly smaller height */
+  margin-right: 12px; /* Reduced margin */
+  flex-shrink: 2; /* Allow more shrinking */
+  position: relative;
+  z-index: 1;
+  box-shadow: none;
+}
+
+.search-bar:focus-within {
+  background: #ffffff;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.search-bar input {
+  border: none;
+  background: transparent;
+  outline: none;
+  flex: 1;
+  font-size: 14px;
+  color: #111827;
+  width: 100%;
+}
+
+.search-bar input::placeholder {
+  color: #6b7280;
+}
+
+.search-icon {
+  color: #6b7280;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  background: none;
+  border: none;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.search-bar:focus-within .search-icon {
+  color: #2563eb;
+}
+
+/* Middle Section - Grid Area 2 (Search + Navigation) */
+.navbar-middle-section {
+  grid-column: 2; /* Middle column */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  overflow: hidden !important;
+  min-width: 0 !important;
+}
+
+/* Right Section - Grid Area 3 (User Profile + Logout) */
+.navbar-right-section {
+  grid-column: 3; /* Right column - RESERVED for user profile and logout */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: end !important;
+  width: 100% !important;
+  min-width: 230px !important; /* More space for both username and logout */
+  flex-shrink: 0 !important;
+  overflow: visible !important;
+  gap: var(--spacing-xs); /* Space between username and logout */
+}
+
+/* When user is not authenticated, minimize right section to give more space to navigation */
+.navbar-container:has(.navbar-right-section:empty) {
+  grid-template-columns: 200px 1fr 60px !important; /* Reduce right column when empty */
+}
+
+/* Fallback for browsers that don't support :has() selector */
+@supports not selector(:has(*)) {
+  /* Use JavaScript classes to handle this case */
+  .navbar-container.no-user {
+    grid-template-columns: 200px 1fr 60px !important;
+  }
+}
+
+/* Navigation Menu - Updated for middle section */
+.nav-menu-container {
+  display: flex !important;
+  align-items: center !important;
+  flex-shrink: 1 !important; /* Allow shrinking in middle section */
+  min-width: fit-content !important;
+  overflow: visible !important;
+  max-width: none !important;
+  width: auto !important;
+  position: relative !important;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 8px; /* Better gap for authenticated navigation after cart removal */
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  min-width: fit-content; /* Ensure menu has minimum required width */
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-xs) 10px; /* More compact padding for authenticated users */
+  color: #222;
+  text-decoration: none;
+  font-size: 0.8rem; /* Slightly smaller font for more items */
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  background: none;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  background: var(--gray-100);
+  color: var(--primary-color);
+  transform: translateY(-1px);
+}
+
+.nav-link.active {
+  background: var(--primary-light);
+  color: var(--primary-color);
+  font-weight: var(--font-weight-semibold);
+}
+
+.nav-icon {
+  margin-right: var(--spacing-xs);
+  font-size: 1rem;
+}
+
+/* Pet Categories Dropdown */
+
+
+/* Cart Link */
+.cart-link {
+  position: relative;
+}
+
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--error-color);
+  color: var(--white);
+  border-radius: var(--radius-full);
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+/* Admin Button */
+.admin-button {
+  background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+  color: var(--white);
+  border: 1px solid #dc2626;
+  transition: all var(--transition-fast);
+}
+
+.admin-button:hover {
+  background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%);
+  color: var(--white);
+  border-color: #b91c1c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+/* User Profile Link in Right Section */
+.user-profile-link {
+  background: var(--primary-light) !important;
+  color: var(--primary-color) !important;
+  border: 1px solid var(--primary-color) !important;
+  flex-shrink: 0 !important;
+  min-width: 90px !important;
+  font-weight: var(--font-weight-medium) !important;
+  font-size: 0.875rem !important;
+  padding: var(--spacing-xs) var(--spacing-sm) !important;
+  white-space: nowrap !important;
+  transition: all var(--transition-fast) !important;
+}
+
+.user-profile-link:hover {
+  background: var(--primary-color) !important;
+  color: var(--white) !important;
+  transform: translateY(-1px);
+}
+
+.user-profile-link.active {
+  background: var(--primary-color) !important;
+  color: var(--white) !important;
+}
+
+/* Username display styling */
+.username-display {
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Logout Button - CRITICAL: Make it always visible */
+.logout-button {
+  background: var(--error-color) !important;
+  color: var(--white) !important;
+  border: 1px solid var(--error-color) !important;
+  flex-shrink: 0 !important; /* Prevent logout button from shrinking */
+  min-width: 85px !important; /* Ensure minimum readable width */
+  font-weight: var(--font-weight-bold) !important;
+  position: relative !important;
+  z-index: 999 !important; /* Highest z-index to stay above everything */
+  white-space: nowrap !important;
+  overflow: visible !important;
+  font-size: 0.875rem !important;
+  padding: var(--spacing-xs) var(--spacing-md) !important;
+}
+
+.logout-button:hover {
+  background: #dc2626 !important;
+  color: var(--white) !important;
+  border-color: #dc2626 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4) !important;
+}
+
+/* Ensure logout button priority - positioned at the end (right side) */
+.logout-nav-item {
+  flex-shrink: 0 !important; /* The nav item containing logout button won't shrink */
+  margin-left: var(--spacing-sm) !important; /* Add margin to separate from other items */
+  position: relative !important;
+  z-index: 999 !important;
+  order: 999 !important; /* Ensure it appears at the very end */
+  overflow: visible !important;
+  min-width: fit-content !important;
+}
+
+/* Mobile Menu Toggle */
+.menu-icon {
+  display: none;
+  color: var(--gray-700);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.menu-icon:hover {
+  background: var(--gray-100);
+  color: var(--primary-color);
+}
+
+/* Large screens - optimized layout */
+@media (max-width: 1200px) and (min-width: 1025px) {
+  .navbar-container {
+    gap: var(--spacing-sm);
+    max-width: 1200px;
+  }
+  
+  /* Adjust grid for better spacing on smaller large screens */
+  .navbar-container {
+    grid-template-columns: 180px 1fr 200px !important;
+  }
+  
+  .navbar-container.no-user,
+  .navbar-container:has(.navbar-right-section:empty) {
+    grid-template-columns: 180px 1fr 40px !important;
+  }
+  
+  .search-bar {
+    max-width: 280px;
+    min-width: 150px;
+    margin-right: var(--spacing-sm);
+    flex-shrink: 2;
+  }
+  
+  .search-bar input::placeholder {
+    font-size: 0.8rem;
+  }
+  
+  .nav-link {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.8rem;
+  }
+  
+  .nav-menu {
+    gap: 4px;
+  }
+  
+  .logout-nav-item {
+    flex-shrink: 0;
+    min-width: fit-content;
+  }
+}
+
+/* Medium screens - prioritize navigation items */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .navbar-container {
+    gap: 8px;
+    padding: 0 var(--spacing-md);
+    grid-template-columns: 160px 1fr 180px !important;
+  }
+  
+  /* Give more space when user is not authenticated */
+  .navbar-container.no-user,
+  .navbar-container:has(.navbar-right-section:empty) {
+    grid-template-columns: 160px 1fr 30px !important;
+  }
+  
+  .search-bar {
+    max-width: 200px;
+    min-width: 120px;
+    margin-right: 8px;
+    flex-shrink: 2; /* Moderate shrinking */
+    flex-basis: 180px;
+  }
+  
+  .nav-link {
+    padding: 6px 8px; /* Reduced padding */
+    font-size: 0.75rem;
+  }
+  
+  .nav-menu {
+    gap: 2px;
+  }
+  
+  /* Ensure user name and logout are always visible */
+  .logout-nav-item {
+    flex-shrink: 0 !important; /* Force no shrinking */
+    min-width: fit-content !important;
+  }
+  
+  .logout-button {
+    padding: 6px 8px;
+    font-size: 0.75rem;
+    min-width: 60px !important; /* Force minimum width */
+  }
+  
+  /* Hide some nav items text on medium screens to prioritize logout */
+  .nav-link .nav-icon {
+    margin-right: 4px;
+  }
+}
+
+/* Specific breakpoint for the exact screen size shown in the screenshot - around 1100-1300px */
+@media (max-width: 1300px) and (min-width: 1100px) {
+  .navbar-container {
+    grid-template-columns: 180px 1fr 200px !important;
+    max-width: 1300px;
+    padding: 0 20px;
+  }
+  
+  .navbar-container.no-user,
+  .navbar-container:has(.navbar-right-section:empty) {
+    grid-template-columns: 180px 1fr 40px !important;
+  }
+  
+  .nav-link {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.875rem;
+  }
+  
+  .nav-menu {
+    gap: 6px;
+  }
+}
+
+/* Add specific breakpoint for tight spaces */
+@media (max-width: 950px) and (min-width: 769px) {
+  .navbar-container {
+    grid-template-columns: 140px 1fr 160px !important;
+  }
+  
+  .navbar-container.no-user,
+  .navbar-container:has(.navbar-right-section:empty) {
+    grid-template-columns: 140px 1fr 20px !important;
+  }
+  
+  .search-bar {
+    max-width: 150px;
+    min-width: 80px;
+    flex-shrink: 5;
+  }
+  
+  .nav-link {
+    padding: 4px 6px;
+    font-size: 0.7rem;
+  }
+  
+  /* Ensure logout button is always visible */
+  .logout-nav-item {
+    position: relative;
+    right: 0 !important;
+  }
+  
+  .logout-button {
+    background: var(--error-color) !important;
+    color: var(--white) !important;
+    border-color: var(--error-color) !important;
+    min-width: 55px !important;
+    font-size: 0.7rem;
+  }
+}
+
+/* Mobile-only elements - Hidden on desktop */
+.mobile-only {
+  display: none !important;
+}
+
+/* Show mobile-only elements only on mobile */
+@media (max-width: 768px) {
+  .mobile-only {
+    display: block !important;
+  }
+  
+  .mobile-logout {
+    background: var(--error-color) !important;
+    color: var(--white) !important;
+    width: 100% !important;
+    text-align: center !important;
+    margin-top: var(--spacing-sm) !important;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar-container {
+    padding: 0 var(--spacing-md);
+  }
+  
+  .search-bar {
+    display: none;
+  }
+  
+  .menu-icon {
+    display: block;
+  }
+  
+  .nav-menu-container {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    border-top: 1px solid var(--gray-200);
+    box-shadow: var(--shadow-lg);
+    padding: var(--spacing-lg);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-normal);
+  }
+  
+  .nav-menu-container.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .nav-menu {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    width: 100%;
+  }
+  
+  .nav-link {
+    width: 100%;
+    justify-content: center;
+    padding: var(--spacing-md);
+    font-size: 1rem;
+  }
+  
+
+}
+
+@media (max-width: 480px) {
+  .navbar-container {
+    padding: 0 var(--spacing-sm);
+  }
+  
+  .logo-text {
+    display: none;
+  }
+  
+  .navbar-icon {
+    margin-right: 0;
+  }
+}
+
+/* Focus States for Accessibility */
+.nav-link:focus,
+.menu-icon:focus,
+.search-bar:focus-within {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Animation for Smooth Interactions */
+
+
+/* Loading Animation for Cart Count */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.cart-count.updated {
+  animation: pulse 0.3s ease-in-out;
+}
+
+/* EMERGENCY FALLBACK - Force logout button to be visible at all costs */
+.logout-nav-item .logout-button {
+  /* Make logout button absolutely impossible to hide */
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  right: 0 !important;
+  top: 0 !important;
+  transform: none !important;
+  clip: none !important;
+  clip-path: none !important;
+  max-width: none !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Ensure logout nav item is always present in flexbox */
+.nav-menu .logout-nav-item {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Make the entire authenticated navigation section more robust */
+.nav-menu {
+  flex-wrap: nowrap !important;
+  overflow: visible !important;
+  white-space: nowrap !important;
+}
+
+/* Additional responsive breakpoint for very small screens where logout might get hidden */
+@media (max-width: 850px) and (min-width: 769px) {
+  /* Force logout to be visible by making it red and prominent */
+  .logout-button {
+    background: #dc2626 !important;
+    color: white !important;
+    border: 2px solid #dc2626 !important;
+    font-weight: bold !important;
+    min-width: 70px !important;
+    font-size: 0.8rem !important;
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
+  }
+  
+  /* Shrink other navigation items more aggressively */
+  .nav-link:not(.logout-button) {
+    font-size: 0.7rem !important;
+    padding: 4px 6px !important;
+  }
+  
+  /* Make search bar even smaller on tight screens */
+  .search-bar {
+    max-width: 120px !important;
+    min-width: 60px !important;
+  }
+}
+
+/* ABSOLUTE POSITIONING FALLBACK - If grid fails, force logout to top-right */
+@media (min-width: 769px) {
+  /* Emergency absolute positioning if grid layout fails */
+  .navbar-right-section .logout-button {
+    position: relative !important;
+    right: 0 !important;
+    top: 0 !important;
+  }
+  
+  /* If all else fails, position logout button absolutely in top right */
+  .navbar-container::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 150px;
+    height: 100%;
+    pointer-events: none;
+    z-index: 998;
+  }
+}
+
+/* Mobile responsive adjustments for grid layout */
+@media (max-width: 768px) {
+  .navbar-container {
+    display: flex !important; /* Use flex on mobile instead of grid */
+    flex-direction: row !important;
+  }
+  
+  .navbar-middle-section {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .navbar-right-section {
+    display: none; /* Hide dedicated right section on mobile - logout goes in mobile menu */
+  }
+}
+
+/* Ensure grid layout works on all screen sizes above mobile */
+@media (min-width: 769px) {
+  .navbar-container {
+    display: grid !important;
+    grid-template-columns: minmax(150px, 200px) 1fr minmax(200px, 250px) !important;
+  }
+  
+  .navbar-right-section {
+    display: flex !important;
+  }
+}
+
+/* Adjust spacing for right section responsively */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .navbar-right-section {
+    gap: 4px !important;
+  }
+  
+  .user-profile-link {
+    min-width: 70px !important;
+    font-size: 0.75rem !important;
+    padding: 4px 6px !important;
+  }
+  
+  .username-display {
+    max-width: 60px;
+  }
+  
+  .logout-button {
+    min-width: 60px !important;
+    font-size: 0.75rem !important;
+    padding: 4px 8px !important;
+  }
+}
+
+@media (max-width: 950px) and (min-width: 769px) {
+  .navbar-container {
+    grid-template-columns: minmax(120px, 180px) 1fr minmax(180px, 220px) !important;
+  }
+  
+  .user-profile-link {
+    min-width: 60px !important;
+    font-size: 0.7rem !important;
+    padding: 3px 5px !important;
+  }
+  
+  .username-display {
+    max-width: 50px;
+  }
+  
+  .logout-button {
+    min-width: 55px !important;
+    font-size: 0.7rem !important;
+    padding: 3px 6px !important;
+  }
+}
+
+/* Admin Navigation Styles */

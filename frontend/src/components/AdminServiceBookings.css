@@ -1,0 +1,147 @@
+.admin-service-bookings-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.admin-service-bookings-container h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 2rem;
+}
+
+.admin-service-bookings-container table {
+  width: 100%;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  overflow: hidden;
+  border-collapse: collapse;
+}
+
+.admin-service-bookings-container thead {
+  background: #f8fafc;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.admin-service-bookings-container th {
+  padding: 16px 12px;
+  text-align: left;
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.admin-service-bookings-container td {
+  padding: 12px;
+  border-bottom: 1px solid #f3f4f6;
+  color: #6b7280;
+  font-size: 0.875rem;
+  vertical-align: top;
+}
+
+.admin-service-bookings-container tbody tr {
+  transition: background-color 0.2s;
+}
+
+.admin-service-bookings-container tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.admin-service-bookings-container tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Specific column styling */
+.admin-service-bookings-container td:nth-child(1), /* User */
+.admin-service-bookings-container td:nth-child(2) { /* Email */
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.admin-service-bookings-container td:nth-child(3) { /* Service */
+  font-weight: 600;
+  color: #2563eb;
+}
+
+.admin-service-bookings-container td:nth-child(4) { /* Category */
+  text-transform: capitalize;
+  color: #059669;
+}
+
+.admin-service-bookings-container td:nth-child(5) { /* Price */
+  font-weight: 600;
+  color: #059669;
+}
+
+.admin-service-bookings-container td:nth-child(6), /* Pet Name */
+.admin-service-bookings-container td:nth-child(7), /* Pet Type */
+.admin-service-bookings-container td:nth-child(8), /* Pet Age */
+.admin-service-bookings-container td:nth-child(9) { /* Pet Breed */
+  color: #7c3aed;
+  font-weight: 500;
+}
+
+.admin-service-bookings-container td:nth-child(10), /* Timing */
+.admin-service-bookings-container td:nth-child(11) { /* Booked At */
+  color: #6b7280;
+  font-size: 0.8rem;
+}
+
+/* Empty state */
+.admin-service-bookings-container tbody:empty::after {
+  content: "No service bookings found";
+  display: block;
+  text-align: center;
+  padding: 3rem;
+  color: #9ca3af;
+  font-style: italic;
+}
+
+/* Responsive table */
+@media (max-width: 1024px) {
+  .admin-service-bookings-container {
+    padding: 1rem;
+  }
+  
+  .admin-service-bookings-container table {
+    font-size: 0.8rem;
+  }
+  
+  .admin-service-bookings-container th,
+  .admin-service-bookings-container td {
+    padding: 8px 6px;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-service-bookings-container {
+    overflow-x: auto;
+  }
+  
+  .admin-service-bookings-container table {
+    min-width: 800px;
+  }
+  
+  .admin-service-bookings-container h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Loading state */
+.admin-service-bookings-container.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.admin-service-bookings-container.loading::after {
+  content: "Loading bookings...";
+  color: #6b7280;
+  font-style: italic;
+} 
